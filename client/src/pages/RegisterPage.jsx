@@ -45,7 +45,7 @@ export default function RegisterPage() {
           <div className="text-center py-2 text-gray-500">
             Already a member?
             <Link className="underline text-black" to={'/login'}>
-              Login
+              Register
             </Link>
           </div>
         </form>
