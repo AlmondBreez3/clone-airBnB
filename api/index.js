@@ -46,6 +46,7 @@ app.post('/login', async (req, res) => {
   const userDoc = await User.findOne({ email });
   console.log(userDoc);
   if (userDoc) {
+    //pw까지 맞는지 확인하는 코드
     const passOk = bcrypt.compareSync(password, userDoc.password);
     if (passOk) {
       jwt.sign(
@@ -81,3 +82,5 @@ app.post('/logout', (req, res) => {
   res.cookie('token', '').json(true);
 });
 app.listen(4000);
+
+//2시간 9분 36초 2/10
