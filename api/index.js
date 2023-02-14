@@ -9,6 +9,7 @@ const cookieParser = require('cookie-parser');
 const imageDownloader = require('image-downloader');
 const multer = require('multer');
 const fs = require('fs');
+const Place = require('./models/Place.js');
 
 require('dotenv').config();
 
@@ -111,6 +112,38 @@ app.post('/upload', photosMiddleware.array('photos', 100), (req, res) => {
   }
   res.json(uploadedFiles);
 });
+
+app.post('/places', (req, res) => {
+  const { token } = req.cookies;
+  const {
+    title,
+    address,
+    addedPhotos,
+    description,
+    perks,
+    extraInfo,
+    checkIn,
+    checkOut,
+    maxGuests,
+  } = req.body;
+  jwt.verify(token, jwtSecret, {}, async (err, userData) => {
+    if (err) throw err;
+    const placeDoc = await Place.create({
+      owner: userData.id,
+      title,
+      address,
+      addedPhotos,
+      description,
+      perks,
+      extraInfo,
+      checkIn,
+      checkOut,
+      maxGuests,
+    });
+    res.json(placeDoc);
+  });
+});
+
 app.listen(4000);
 
 //2시간 9분 36초 2/10

@@ -1,4 +1,4 @@
-export default function Perks({ selectes, onChange }) {
+export default function Perks({ selected, onChange }) {
   function handleCbClick(ev) {
     const { checked, name } = ev.target;
     if (checked) {
